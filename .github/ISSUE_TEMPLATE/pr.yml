@@ -1,0 +1,16 @@
+name: Feature / Fix
+about: Contribute a change
+labels: []
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What and why.
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options: [feat, fix, docs, ci, refactor]
