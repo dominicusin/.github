@@ -1,5 +1,6 @@
 name: Reusable Haskell CI
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       ghc-version:

@@ -1,5 +1,6 @@
 name: Reusable JS site CI
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       node-version:

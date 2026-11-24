@@ -1,5 +1,6 @@
 name: Reusable GitLab mirror (opt-in)
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       gitlab-repo:

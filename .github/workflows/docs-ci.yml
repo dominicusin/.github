@@ -1,5 +1,6 @@
 name: Reusable docs CI
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       config:
