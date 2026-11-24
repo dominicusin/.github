@@ -1,0 +1,36 @@
+name: Reusable Haskell CI
+on:
+  workflow_call:
+    inputs:
+      ghc-version:
+        description: GHC version
+        type: string
+        required: false
+        default: '9.6.5'
+      cabal-version:
+        description: cabal-install version
+        type: string
+        required: false
+        default: '3.12.1.0'
+      build-command:
+        description: Build and test command
+        type: string
+        required: false
+        default: 'cabal update && cabal build all && cabal test all'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ inputs.ghc-version }}
+          cabal-version: ${{ inputs.cabal-version }}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cabal/store
+          key: cabal-${{ runner.os }}-${{ inputs.ghc-version }}-${{ hashFiles('**/cabal.project', '**/*.cabal') }}
+      - name: Build and test
+        run: ${{ inputs.build-command }}

@@ -1,0 +1,26 @@
+name: Reusable GitLab mirror (opt-in)
+on:
+  workflow_call:
+    inputs:
+      gitlab-repo:
+        type: string
+        required: true
+    secrets:
+      GITLAB_TOKEN:
+        required: true
+permissions:
+  contents: read
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Push read-only mirror
+        env:
+          TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          TARGET: ${{ inputs.gitlab-repo }}
+        run: |
+          git remote add gl "https://oauth2:${TOKEN}@gitlab.com/${TARGET}.git"
+          git push --force gl HEAD:main
